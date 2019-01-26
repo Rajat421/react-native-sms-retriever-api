@@ -7,20 +7,20 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.1'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.gms:google-services:3.2.1'
     }
 }
 
 def DEFAULT_COMPILE_SDK_VERSION = 26
-def DEFAULT_BUILD_TOOLS_VERSION = "28.0.2"
 def DEFAULT_TARGET_SDK_VERSION = 26
 def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION = "15.0.0"
+def googlePlayServicesVersion = project.hasProperty('googlePlayServicesVersion') ? project.googlePlayServicesVersion : project.hasProperty('playServiceVersion') ? project.playServiceVersion : DEFAULT_GOOGLE_PLAY_SERVICES_VERSION
+
 apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion project.hasProperty('compileSdkVersion') ? project.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
-    buildToolsVersion project.hasProperty('buildToolsVersion') ? project.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
-
 
     defaultConfig {
         minSdkVersion 16
@@ -35,16 +35,14 @@ android {
 
 repositories {
     mavenCentral()
+    google()
     maven { url 'https://maven.google.com' }
 
 }
 
 dependencies {
-
-    def googlePlayServicesVersion = project.hasProperty('googlePlayServicesVersion') ? project.googlePlayServicesVersion
-            : project.hasProperty('playServiceVersion') ? project.playServiceVersion : DEFAULT_GOOGLE_PLAY_SERVICES_VERSION
-    compile "com.facebook.react:react-native:+",
-    implementation "com.google.android.gms:play-services-auth:$googlePlayServicesVersion"
-    implementation "com.google.android.gms:play-services-base:$googlePlayServicesVersion"
+    implementation "com.facebook.react:react-native:+"
+    implementation "com.google.android.gms:play-services-auth:${googlePlayServicesVersion}"
+    implementation "com.google.android.gms:play-services-base:${googlePlayServicesVersion}"
 }
   
