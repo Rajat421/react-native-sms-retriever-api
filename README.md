@@ -1,13 +1,13 @@
 
-# react-native-sms-retriever
+# /react-native-sms-retriever-api
 
 ## Getting started
 
-`$ npm install react-native-sms-retriever --save`
+`$ npm install react-native-sms-retriever-api --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-sms-retriever`
+`$ react-native link react-native-sms-retriever-api`
 
 ### Manual installation
 
@@ -26,12 +26,12 @@
   - Add `new RNSmsRetrieverPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
   	```
-  	include ':react-native-sms-retriever'
-  	project(':react-native-sms-retriever').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-sms-retriever/android')
+  	include ':react-native-sms-retriever-api'
+  	project(':react-native-sms-retriever-api').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-sms-retriever-api/android')
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      compile project(':react-native-sms-retriever')
+      compile project(':react-native-sms-retriever-api')
   	```
 
 ## Usage

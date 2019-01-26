@@ -1,8 +1,7 @@
-
 {
-  "name": "react-native-sms-retriever",
+  "name": "react-native-sms-retriever-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Getting started",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,9 +16,17 @@
     "android",
     "otp-verify"
   ],
-  "author": "",
-  "license": "",
+  "author": "Rajat Gupta",
+  "license": "ISC",
   "peerDependencies": {
     "react-native": "^0.41.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rajat421//react-native-sms-retriever-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rajat421//react-native-sms-retriever-api/issues"
+  },
+  "homepage": "https://github.com/Rajat421//react-native-sms-retriever-api#readme"
 }
