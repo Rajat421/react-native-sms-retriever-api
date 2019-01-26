@@ -5,8 +5,8 @@ const SmsRetriever = Symbol('SmsRetriever');
 
 
 SmsRetriever = Platform.OS == "ios" ? {
-    getOtp: () => new Promise,
-    getHash: () => new Promise,
+    getOtp: () => new Promise(),
+    getHash: () => new Promise(),
     addListener: (handler) =>
         DeviceEventEmitter
             .addListener('com.RNSmsRetriever:otpReceived', handler),
