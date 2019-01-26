@@ -136,7 +136,7 @@ public class RNSmsRetrieverModule extends ReactContextBaseJavaModule implements 
 		}
 	}
 	@ReactMethod
-	public void verifyDevice(Promise verifyDeviceSuccess){
+	public void getOtp(Promise verifyDeviceSuccess){
 		verifyDeviceCallback=verifyDeviceSuccess;
 		SmsRetrieverClient client = SmsRetriever.getClient(context);
 		Task<Void> task = client.startSmsRetriever();
