@@ -11,7 +11,7 @@ SmsRetriever = Platform.OS == "ios" ? {
         DeviceEventEmitter
             .addListener('com.RNSmsRetriever:otpReceived', handler),
 
-    removeListener: () => DeviceEventEmitter.removeAllListeners('com.faizalshap.otpVerify:otpReceived'),
+    removeListener: () => DeviceEventEmitter.removeAllListeners('com.RNSmsRetriever:otpReceived'),
 } : {
         getOtp: RNSmsRetriever.getOtp,
         getHash: RNSmsRetriever.getHash,
@@ -20,7 +20,7 @@ SmsRetriever = Platform.OS == "ios" ? {
             DeviceEventEmitter
                 .addListener('com.RNSmsRetriever:otpReceived', handler),
 
-        removeListener: () => DeviceEventEmitter.removeAllListeners('com.faizalshap.otpVerify:otpReceived'),
+        removeListener: () => DeviceEventEmitter.removeAllListeners('com.RNSmsRetriever:otpReceived'),
     }
 
 
