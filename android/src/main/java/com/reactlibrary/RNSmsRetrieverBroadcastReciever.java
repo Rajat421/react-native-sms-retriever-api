@@ -19,6 +19,8 @@ import java.util.regex.Pattern;
 
 public class RNSmsRetrieverBroadcastReciever extends BroadcastReceiver {
     private ReactApplicationContext mContext;
+    private static final String EVENT = "com.RNSmsRetriever:otpReceived";
+
     public RNSmsRetrieverBroadcastReciever() {
         super();
     }
@@ -44,7 +46,7 @@ public class RNSmsRetrieverBroadcastReciever extends BroadcastReceiver {
 
         mContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit("OTPRecieved", receivedMessage);
+                .emit(EVENT, receivedMessage);
     }
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -61,27 +63,9 @@ public class RNSmsRetrieverBroadcastReciever extends BroadcastReceiver {
                     String message = (String) extras.get(SmsRetriever.EXTRA_SMS_MESSAGE);
                     receiveMessage(message);
 
-//                    System.out.println(message);
-//                    Pattern pattern  = Pattern.compile("\\d{6}");
-//                    Matcher matcher = pattern.matcher(message);
-//                    Log.i("BROADCASTSMS", message);
-//
-//                    if (matcher.find()) {
-//
-//                        if (mContext == null) {
-//                            return;
-//                        }
-//                        Log.i("BROADCASTSMS", "dsf");
-//
-//
-//                    }
-                    // Extract one-time code from the message and complete verification
-                    // by sending the code back to your server.
                     break;
                 case CommonStatusCodes.TIMEOUT:
 
-                    // Waiting for SMS timed out (5 minutes)
-                    // Handle the error ...
                     break;
             }
         }
