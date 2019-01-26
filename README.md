@@ -36,7 +36,7 @@
 
 ## Usage
 ```javascript
-import RNSmsRetriever from 'react-native-sms-retriever';
+import RNSmsRetriever from 'react-native-sms-retriever-api';
 
 // TODO: What to do with the module?
 RNSmsRetriever;
