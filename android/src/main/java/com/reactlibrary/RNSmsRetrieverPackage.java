@@ -1,7 +1,7 @@
 
 package com.reactlibrary;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,9 +29,7 @@ public class RNSmsRetrieverPackage implements ReactPackage {
     return modules;
   }
   // Deprecated from RN 0.47
-  public List<Class<? extends JavaScriptModule>> createJSModules() {
-    return Collections.emptyList();
-  }
+
   /**
    * @param reactContext
    * @return a list of view managers that should be registered with {@link UIManagerModule}

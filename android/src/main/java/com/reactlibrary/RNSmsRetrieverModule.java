@@ -146,8 +146,9 @@ public class RNSmsRetrieverModule extends ReactContextBaseJavaModule implements 
 
 			@Override
 			public void onSuccess(Void aVoid) {
-				map=Arguments.createMap();
-				verifyDeviceCallback.resolve(map);
+				Log.e(TAG, "started sms listener");
+
+				verifyDeviceCallback.resolve(true);
 			}
 		});
 
@@ -156,7 +157,6 @@ public class RNSmsRetrieverModule extends ReactContextBaseJavaModule implements 
 
 			@Override
 			public void onFailure(@NonNull Exception e) {
-				map=Arguments.createMap();
 				verifyDeviceCallback.reject(e);
 			}
 

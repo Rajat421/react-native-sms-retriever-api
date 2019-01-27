@@ -1,23 +1,19 @@
 
 import { NativeModules, DeviceEventEmitter, Platform } from 'react-native';
 const { RNSmsRetriever } = NativeModules;
-const SmsRetriever = Symbol('SmsRetriever');
 
 
-SmsRetriever = Platform.OS == "ios" ? {
+const SmsRetriever = Platform.OS == "ios" ? {
     getOtp: () => new Promise(),
     getHash: () => new Promise(),
-    requestHint:()=>new Promise(),
+    requestHint: () => new Promise(),
     addListener: (handler) =>
         DeviceEventEmitter
             .addListener('com.RNSmsRetriever:otpReceived', handler),
 
     removeListener: () => DeviceEventEmitter.removeAllListeners('com.RNSmsRetriever:otpReceived'),
 } : {
-        getOtp: RNSmsRetriever.getOtp,
-        getHash: RNSmsRetriever.getHash,
-        requestHint:RNSmsRetriever.requestHint,
-
+        ...RNSmsRetriever,
         addListener: (handler) =>
             DeviceEventEmitter
                 .addListener('com.RNSmsRetriever:otpReceived', handler),
