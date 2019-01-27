@@ -34,11 +34,32 @@
       compile project(':react-native-sms-retriever-api')
   	```
 
+
+## Methods
+```javascript
+
+getOtp():Promise<boolean>
+Start listening for OTP/SMS. Return true if listener starts else throws error.
+
+getHash():Promise<string[]>
+Gets the hash code for the application which should be added at the end of message. This is just a one time process.
+
+addListener(handler:(message:string)=>any):Promise<boolean>
+Adds a javascript listener to the handler passed which is called when message is received.
+
+removeListener():void
+Removes the listener.
+```
+
 ## Usage
 ```javascript
 import RNSmsRetriever from 'react-native-sms-retriever-api';
 
 // TODO: What to do with the module?
-RNSmsRetriever;
+
+
+
+
+
 ```
   
