@@ -36,20 +36,27 @@
 
 
 ## Methods
-```
 
-getOtp():Promise<boolean>
+---
+### `getOtp():Promise<boolean>`
+
 Start listening for OTP/SMS. Return true if listener starts else throws error.
 
-getHash():Promise<string[]>
-Gets the hash code for the application which should be added at the end of message. This is just a one time process.
+---
+### `getHash():Promise<string[]>`
 
-addListener(handler:(message:string)=>any):Promise<boolean>
+Gets the hash code for the application which should be added at the end of message.
+This is just a one time process.
+
+---
+### `addListener(handler:(message:string)=>any):Promise<boolean>`
+
 Adds a javascript listener to the handler passed which is called when message is received.
 
-removeListener():void
+---
+### `removeListener():void`
+
 Removes the listener.
-```
 
 ## Usage
 ```javascript
