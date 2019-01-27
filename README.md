@@ -36,7 +36,7 @@
 
 
 ## Methods
-```javascript
+```
 
 getOtp():Promise<boolean>
 Start listening for OTP/SMS. Return true if listener starts else throws error.
