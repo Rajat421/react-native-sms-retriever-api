@@ -16,13 +16,13 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.google.android.gms.auth.api.credentials.*;
+import com.google.android.gms.auth.api.identity.*;
 import com.google.android.gms.auth.api.Auth;
 import android.app.PendingIntent;
 import android.app.Activity;
@@ -65,9 +65,12 @@ public class RNSmsRetrieverModule extends ReactContextBaseJavaModule implements 
 			Log.d(TAG,"callback");
 			if (requestCode == RESOLVE_HINT) {
 				if (resultCode == Activity.RESULT_OK) {
-					Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
-					// credential.getId(); <-- will need to process phone number string
-					requestHintCallback.resolve(credential.getId());
+					try {
+						String phoneNumber = Identity.getSignInClient(activity).getPhoneNumberFromIntent(data);
+						requestHintCallback.resolve(phoneNumber);
+					} catch (Exception e) {
+						requestHintCallback.reject("Error getting phone number hint", e.toString());
+					}
 				}
 			}
 		}
@@ -78,11 +81,6 @@ public class RNSmsRetrieverModule extends ReactContextBaseJavaModule implements 
 		super(reactContext);
 		reactContext.addActivityEventListener(mActivityEventListener);
 		context=reactContext;
-		apiClient= new GoogleApiClient.Builder(reactContext)
-				.addApi(Auth.CREDENTIALS_API)
-				.addConnectionCallbacks(this)
-				.addOnConnectionFailedListener(this)
-				.build();
 		mReceiver=new RNSmsRetrieverBroadcastReciever(reactContext);
 		getReactApplicationContext().addLifecycleEventListener(this);
 		registerReceiverIfNecessary(mReceiver);
@@ -123,17 +121,20 @@ public class RNSmsRetrieverModule extends ReactContextBaseJavaModule implements 
 			requestHintCallback.reject("No Activity Found");
 			return;
 		}
-		try {
-			HintRequest hintRequest = new HintRequest.Builder().setPhoneNumberIdentifierSupported(true).build();
-			PendingIntent intent = Auth.CredentialsApi.getHintPickerIntent(apiClient, hintRequest);
 
-			currentActivity.startIntentSenderForResult(intent.getIntentSender(), RESOLVE_HINT, null, 0, 0, 0);
-
-		} catch (Exception e) {
-			System.out.println(e);
-
-			requestHintCallback.reject(e);
-		}
+		GetPhoneNumberHintIntentRequest request = GetPhoneNumberHintIntentRequest.builder().build();
+		
+		Identity.getSignInClient(currentActivity).getPhoneNumberHintIntent(request)
+			.addOnSuccessListener(result -> {
+				try {
+					currentActivity.startIntentSenderForResult(result.getIntentSender(), RESOLVE_HINT, null, 0, 0, 0);
+				} catch (Exception e) {
+					requestHintCallback.reject("Error starting intent", e.toString());
+				}
+			})
+			.addOnFailureListener(error -> {
+				requestHintCallback.reject("Error getting phone number hint", error.toString());
+			});
 	}
 	@ReactMethod
 	public void getOtp(Promise verifyDeviceSuccess){
